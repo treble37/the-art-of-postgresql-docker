@@ -47,3 +47,8 @@ $ docker exec -it artofpostgres ./fetch-f1db-data.sh
 # PostgreSQL database
 $ docker exec -it artofpostgres ./fetch-f1db-data.sh --recreate
 ```
+
+### Customization Notes for PopOS
+
+- https://github.com/dimitri/pgloader/wiki/Running-in-Docker-(SBCL-warning)
+- https://stackoverflow.com/questions/46053672/set-secomp-to-unconfined-in-docker-compose

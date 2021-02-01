@@ -3,6 +3,8 @@ services:
   db:
     build: .
     container_name: artofpostgres
+    security_opt:
+      - seccomp:unconfined
     environment:
       HOST_IP: host.docker.internal
       POSTGRES_HOST_AUTH_METHOD: "trust"

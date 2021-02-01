@@ -14,8 +14,8 @@ F1DB_DB_NAME=f1db
 F1DB_SQLITE_DATASOURCE=http://ergast.com/downloads/f1db.sql.gz
 
 echo -e "${GREEN}Fetching latest version of f1db...${NC}"
-wget $F1DB_SQLITE_DATASOURCE -Nq
-gunzip -kf f1db.sql.gz
+sudo wget $F1DB_SQLITE_DATASOURCE -N
+sudo gunzip -kf f1db.sql.gz
 
 echo -e "${GREEN}Installing and starting MariaDB...${NC}"
 sudo apt-get update > /dev/null
@@ -28,6 +28,7 @@ until pg_isready > /dev/null && pgrep mysql | wc -l > /dev/null; do
 done
 
 echo -e "${GREEN}Creating intermediary MariaDB database and importing f1db data...${NC}"
+#sudo apt-get -y install sbcl gcl
 sudo mysql -u root -e "DROP DATABASE IF EXISTS $F1DB_DB_NAME;"
 sudo mysql -u root -e "CREATE DATABASE $F1DB_DB_NAME;"
 sudo mysql -u root -e "USE $F1DB_DB_NAME; SOURCE f1db.sql;"
@@ -61,6 +62,6 @@ echo -e "${GREEN}Cleaning up...${NC}"
 sudo mysql -u root -e "DROP DATABASE IF EXISTS $F1DB_DB_NAME;"
 sudo /etc/init.d/mysql stop > /dev/null
 yes | sudo apt-get autoremove --purge mariadb-server mariadb-client > /dev/null
-rm f1db.sql
+sudo rm f1db.sql
 
 echo -e "${GREEN}Done! 🎉${NC}"
